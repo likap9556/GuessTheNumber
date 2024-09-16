@@ -3,29 +3,31 @@
     public class Game
     {
         private readonly GameSettings _settings;
-        private readonly int _numberToGuess;
+        private readonly INumberGenerator _numberGenerator;
 
         public Game(INumberGenerator numberGenerator, GameSettings settings)
         {
             _settings = settings;
-            _numberToGuess = numberGenerator.GenerateNumber(_settings.MinNumber, _settings.MaxNumber);
+            _numberGenerator = numberGenerator;
         }
 
         public void Play()
         {
+            var numberToGuess = _numberGenerator.GenerateNumber(_settings.MinNumber, _settings.MaxNumber);
             var attempts = 0;
+
             while (attempts < _settings.MaxAttempts)
             {
-                var userGuess = new UserInput().GetUserGuess();
+                var userGuess = UserInput.GetUserGuess();
                 attempts++;
 
-                if (userGuess == _numberToGuess)
+                if (userGuess == numberToGuess)
                 {
                     Console.WriteLine("Поздравляем! Вы угадали число!");
                     return;
                 }
 
-                if (userGuess < _numberToGuess)
+                if (userGuess < numberToGuess)
                 {
                     Console.WriteLine("Загаданное число больше.");
                 }
@@ -34,7 +36,7 @@
                     Console.WriteLine("Загаданное число меньше.");
                 }
             }
-            Console.WriteLine($"Вы исчерпали попытки! Загаданное число было: {_numberToGuess}.");
+            Console.WriteLine($"Вы исчерпали попытки! Загаданное число было: {numberToGuess}.");
         }
     }
 }

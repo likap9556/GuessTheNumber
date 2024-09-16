@@ -1,10 +1,10 @@
 ﻿namespace GuessTheNumber
 {
-    public class RandomNumberGenerator : INumberGenerator
+    public class RandomNumberGenerator : BaseNumberGenerator
     {
         private readonly Random _random = new();
 
-        public int GenerateNumber(int min, int max)
+        public override int GenerateNumber(int min, int max)
         {
             return _random.Next(min, max);
         }
