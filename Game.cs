@@ -23,20 +23,20 @@
 
                 if (userGuess == numberToGuess)
                 {
-                    Console.WriteLine("Поздравляем! Вы угадали число!");
-                    return;
+                    UserNotification.SendSuccess();
                 }
 
-                if (userGuess < numberToGuess)
+                else if (userGuess < numberToGuess)
                 {
-                    Console.WriteLine("Загаданное число больше.");
+                    UserNotification.SendNumberGreater();
                 }
+
                 else
                 {
-                    Console.WriteLine("Загаданное число меньше.");
+                    UserNotification.SendNumberLess();
                 }
             }
-            Console.WriteLine($"Вы исчерпали попытки! Загаданное число было: {numberToGuess}.");
+            UserNotification.SendLoss(numberToGuess);
         }
     }
 }
